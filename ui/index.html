@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shorten Link</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Shorten Your Link</h1>
+    <form id="shortenForm">
+      <input type="url" id="urlInput" pattern=".*\..*" placeholder="Enter your website URL" required>
+      <button type="submit">Shorten</button>
+    </form>
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('shortenForm');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const url = document.getElementById('urlInput').value;
+
+      // Simulate a shortened URL (replace this with actual backend logic)
+      fetch(`http://localhost:3000/create?url=${url}`, {
+        method: 'POST',
+      }).then(res => res.json())
+      .then(data => {
+        shortenedUrl = "http://localhost:3000/short/" + data.id;
+        output.innerHTML = `Shortened URL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
+      }).catch(error => {
+        console.error('Error:', error);
+        output.innerHTML = 'Error shortening the URL. Please try again.';
+      });
+    });
+  </script>
+</body>
+</html>
