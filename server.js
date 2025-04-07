@@ -5,6 +5,7 @@ const app = express()
 const port = 3000
 
 app.use(express.static('ui'))
+
 app.get('/', (req, res) => {
     try {
         res.sendFile(path.join(__dirname + '/ui/index.html'))

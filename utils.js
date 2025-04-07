@@ -1,14 +1,4 @@
-const { query, insert } = require('./persistence/model');
-
-// const sqlite3 = require('sqlite3').verbose();
-// const db = new sqlite3.Database('./db/app.db');
-
-// db.run(`
-//         CREATE TABLE IF NOT EXISTS data(
-//         id TEXT,
-//         url TEXT
-//         ) STRICT
-// `);
+const { findId, queryUrl, insert } = require('./persistence/model');
 
 function makeID(length) {
     let result = '';
@@ -23,46 +13,36 @@ function makeID(length) {
 }
 
 function findOrigin(id) {
-    return query(id);
-    // return new Promise((resolve, reject) => {
-    //     return db.get(`SELECT * FROM data WHERE id = ?`, [id], function (err, res) {
-    //         if (err) {
-    //             return reject(err.message);
-    //         }
-    //         if (res != undefined) {
-    //             return resolve(res.url);
-    //         } else {
-    //             return resolve(null);
-    //         }
-    //     });
-    // });
+    return findId(id);
+}
+
+function getId(url) {
+    return queryUrl(url)
 }
 
 function create(id, url) {
     return insert(id, url);
-    // return new Promise((resolve, reject) => {
-    //     return db.run(`INSERT INTO data VALUES (?, ?)`, [id, url], function (err) {
-    //         if (err) {
-    //             return reject(err.message);
-    //         }
-    //         return resolve(id);
-    //     });
-    // });
 }
 
 async function shortUrl(url) {
-    let newID = makeID(5);
-    let originUrl = await findOrigin(newID);
-    if (originUrl == null);
-    const res = await create(newID, url)
-    if (res && res != Error) {
-        return newID;
-    } else {
-        console.log(res)
-        return null;
+    // const id = await getId(url)
+    // if (id != null) {
+    //     return id;
+    // }
+    while (true) {
+        let newID = makeID(5);
+        let originUrl = await findOrigin(newID);
+        if (originUrl == null) {
+            const res = await create(newID, url)
+            if (res && res != Error) {
+                return newID;
+            } else {
+                console.log(res)
+                return null;
+            }
+        }
     }
 }
-
 module.exports = {
     findOrigin,
     shortUrl
