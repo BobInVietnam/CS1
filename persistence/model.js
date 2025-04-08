@@ -1,56 +1,25 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/app.db');
+const { Url, initialize } = require('./sequelize');
 
-db.run(`
-  CREATE TABLE IF NOT EXISTS data(
-  id TEXT,
-  url TEXT
-  ) STRICT
-`);
-
-function findId(id) {
-  return new Promise((resolve, reject) => {
-    return db.get(`SELECT * FROM data WHERE id = ?`, [id], function (err, res) {
-      if (err) {
-        return reject(err.message);
-      }
-      if (res != undefined) {
-        return resolve(res.url);
-      } else {
-        return resolve(null); 
-      }
-    });
-  });
+async function findId(id) {
+  await initialize();
+  const record = await Url.findByPk(id);
+  return record ? record.url : null;
 }
 
-function queryUrl(url) {
-  return new Promise((resolve, reject) => {
-    return db.get(`SELECT * FROM data WHERE url = ?`, [url], function (err, res) {
-      if (err) {
-        return reject(err.message)
-      }
-      if (res != undefined) {
-        return resolve(res.id);
-      } else {
-        return resolve(null); 
-      }
-    });
-  });
+async function queryUrl(url) {
+  await initialize();
+  const record = await Url.findOne({ where: { url } });
+  return record ? record.id : null;
 }
 
-function insert(id, url) {
-  return new Promise((resolve, reject) => {
-    return db.run(`INSERT INTO data VALUES (?, ?)`, [id, url], function (err) {
-      if (err) {
-        return reject(err.message);
-      }
-      return resolve(id);
-    });
-  });
+async function insert(id, url) {
+  await initialize();
+  const record = await Url.create({ id, url });
+  return record.id;
 }
 
 module.exports = {
   findId,
   queryUrl,
-  insert
-}
+  insert,
+};
