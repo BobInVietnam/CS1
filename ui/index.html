@@ -24,14 +24,26 @@
       event.preventDefault();
       const url = document.getElementById('urlInput').value;
 
-      // Simulate a shortened URL (replace this with actual backend logic)
+      var i = 0;
+      let text = ["Shortening. Please wait.",
+        "Shortening. Please wait..",
+        "Shortening. Please wait...",
+      ]
+
+      const loop = setInterval(() => {
+        output.innerHTML = text[i]
+        i = (i + 1) % text.length
+      }, 1000)
+
       fetch(`http://localhost:3000/create?url=${url}`, {
         method: 'POST',
       }).then(res => res.json())
       .then(data => {
+        clearInterval(loop)
         shortenedUrl = "http://localhost:3000/short/" + data.id;
         output.innerHTML = `Shortened URL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
       }).catch(error => {
+        clearInterval(loop)
         console.error('Error:', error);
         output.innerHTML = 'Error shortening the URL. Please try again.';
       });

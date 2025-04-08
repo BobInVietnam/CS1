@@ -1,10 +1,13 @@
 const express = require('express')
 const lib = require('./utils')
+const middleware = require('./middleware')
+
 const path = require('path')
 const app = express()
 const port = 3000
 
 app.use(express.static('ui'))
+app.use(middleware.requestLogger)
 
 app.get('/', (req, res) => {
     try {
@@ -34,7 +37,6 @@ app.post('/create', async (req, res) => {
         const url = req.query.url;
         const newID = await lib.shortUrl(url);
         res.send({id:newID});
-
     } catch (err) {
         res.send(err)
     }
