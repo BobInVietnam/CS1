@@ -3,11 +3,13 @@ Dưới đây là một chương trình đơn giản sử dụng `express.js`, c
 
 ## Người thực hiện
 Cao Xuân Hùng - 22028291
-
+Lê Khả Thái Sơn - 21020088
 
 ## Hướng dẫn cài đặt
 ```sh
 # Cài đặt các gói liên quan
+$ npm install --omit=dev
+# Cài đặt các gói liên quan (bao gồm gói test)
 $ npm install
 # Tạo folder cho database
 $ mkdir db
