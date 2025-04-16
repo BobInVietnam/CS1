@@ -1,19 +1,38 @@
 config:
   target: "http://localhost:3000" # Replace with your server's URL
   phases:
-    - duration: 10  # Test duration in seconds
+    - name: "Begin"
+      duration: 10  # Test duration in seconds
       arrivalRate: 1  # Number of users per second
+    # - name: "Steady"
+    #   duration: 60
+    #   arrivalRate: 10
+    #   rampTo: 30
+    # - name: "Spike"
+    #   duration: 20
+    #   arrivalRate: 50
+    #   rampTo: 200
+    # - name: "Super Spike"
+    #   duration: 20
+    #   arrivalRate: 500
+    #   rampTo: 2000
+    # - name: "Rest"
+    #   duration: 30
+    #   arrivalRate: 10
 scenarios:
   - flow:
+      - log: "User Created"
       - get:
           url: "/"
+      - think: 3
       - post:
           url: "/create?url=https://youtu.be/rOpEN1JDaD0?si=DU4Shli9wUL65CaN"
           capture:
             - json: "$.id"
               as: videoId
+      - think: 3
       - get:
           url: "/short/{{videoId}}"
-          capture:
-            - json: "$.url"
-              as: url
+          ifTrue: "videoId"
+          followRedirect: false
+

@@ -15,6 +15,8 @@ $ npm install
 $ mkdir db
 # Khởi chạy ứng dụng
 $ npm start 
+# Chạy test
+$ npm run test:performance
 ```
 
 ## Mô Tả

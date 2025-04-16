@@ -37,14 +37,19 @@
 
       fetch(`http://localhost:3000/create?url=${url}`, {
         method: 'POST',
-      }).then(res => res.json())
+      }).then(res => {
+          if (res.status !== 200) {
+            throw new Error('Status code ' + res.status + ' - ' + res.statusText)
+          }
+          return res.json()
+        })
       .then(data => {
-        clearInterval(loop)
-        shortenedUrl = "http://localhost:3000/short/" + data.id;
-        output.innerHTML = `Shortened URL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
+          clearInterval(loop)
+          shortenedUrl = "http://localhost:3000/short/" + data.id;
+          output.innerHTML = `Shortened URL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
       }).catch(error => {
         clearInterval(loop)
-        console.error('Error:', error);
+        console.error(error);
         output.innerHTML = 'Error shortening the URL. Please try again.';
       });
     });

@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
     try {
         res.sendFile(path.join(__dirname + '/ui/index.html'))
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 })
 
@@ -23,13 +23,13 @@ app.get('/short/:id', async (req, res) => {
         const id = req.params.id;
         const url = await lib.findOrigin(id);
         if (url == null) {
-            res.send("<h1>404</h1>");
+            res.status(404).send("<h1>404</h1>");
         }
         else {
             res.redirect(url);
         }
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 })
 
@@ -39,7 +39,7 @@ app.post('/create', async (req, res) => {
         const newID = await lib.shortUrl(url);
         res.send({id:newID});
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 });
 
