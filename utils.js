@@ -38,6 +38,17 @@ async function create(id, url) {
 }
 
 async function shortUrl(url) {
+    let id = await cache.get(url)
+    if (id) {
+        console.log(`Cache hit for URL: ${url}`);
+        return id;
+    }
+    id = await queryUrl(url);
+    if (id != null) {
+        cache.set(url, id)
+        return id;
+    }
+
     while (true) {
         let newID = makeID(5);
         let originUrl = await findOrigin(newID);

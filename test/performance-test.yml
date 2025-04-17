@@ -1,13 +1,18 @@
 config:
-  target: "http://localhost:3000" # Replace with your server's URL
+  target: "http://localhost:3000"
+  http:
+    timeout: 300
+  payload:
+    path: 'random_urls.csv'
+    fields:
+      - 'url'
   phases:
     - name: "Begin"
       duration: 10  # Test duration in seconds
       arrivalRate: 1  # Number of users per second
-    # - name: "Steady"
-    #   duration: 60
-    #   arrivalRate: 10
-    #   rampTo: 30
+    - name: "Steady"
+      duration: 60
+      arrivalRate: 100
     # - name: "Spike"
     #   duration: 20
     #   arrivalRate: 50
@@ -21,16 +26,11 @@ config:
     #   arrivalRate: 10
 scenarios:
   - flow:
-      - log: "User Created"
-      - get:
-          url: "/"
-      - think: 3
       - post:
-          url: "/create?url=https://youtu.be/rOpEN1JDaD0?si=DU4Shli9wUL65CaN"
+          url: "/create?url={{url}}"
           capture:
             - json: "$.id"
               as: videoId
-      - think: 3
       - get:
           url: "/short/{{videoId}}"
           ifTrue: "videoId"
