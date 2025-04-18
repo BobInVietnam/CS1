@@ -1,5 +1,5 @@
 const express = require('express');
-const lib = require('./utils');
+const lib = require('./controller/utils');
 const middleware = require('./middleware');
 const rateLimit = require('express-rate-limit');
 
@@ -7,15 +7,14 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-// Cấu hình middleware throttling
-const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 phút
-    max: 100, // Tối đa 100 yêu cầu mỗi phút
-    message: { error: "Too many requests, please try again later." },
-});
+// const limiter = rateLimit({
+//     windowMs: 1000,
+//     max: 100,
+//     message: { error: "Too many requests, please try again later." },
+// });
 
 
-app.use(limiter);
+// app.use(limiter);
 
 app.use(express.static('ui'));
 app.use(middleware.requestLogger);

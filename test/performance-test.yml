@@ -1,38 +1,39 @@
 config:
   target: "http://localhost:3000"
   http:
-    timeout: 300
+    timeout: 120
   payload:
     path: 'random_urls.csv'
     fields:
       - 'url'
+    random: true
   phases:
     - name: "Begin"
-      duration: 10  # Test duration in seconds
-      arrivalRate: 1  # Number of users per second
-    - name: "Steady"
+      duration: 60  # Test duration in seconds
+      arrivalRate: 30  # Number of users per second
+    - pause: 10
+    - name: "Rapid Ramp"
+      duration: 20
+      arrivalRate: 10
+      rampTo: 200
+    - name: "TOP"
       duration: 60
-      arrivalRate: 100
-    # - name: "Spike"
-    #   duration: 20
-    #   arrivalRate: 50
-    #   rampTo: 200
-    # - name: "Super Spike"
-    #   duration: 20
-    #   arrivalRate: 500
-    #   rampTo: 2000
-    # - name: "Rest"
-    #   duration: 30
-    #   arrivalRate: 10
+      arrivalRate: 200
+    - name: "Ramp Down"
+      duration: 20
+      arrivalRate: 200
+      rampTo: 10
+    - name: "End"
+      duration: 60
+      arrivalRate: 5
 scenarios:
   - flow:
       - post:
           url: "/create?url={{url}}"
           capture:
             - json: "$.id"
-              as: videoId
+              as: "tempId"
       - get:
-          url: "/short/{{videoId}}"
-          ifTrue: "videoId"
+          url: "/short/{{tempId}}"
+          ifTrue: "tempId"
           followRedirect: false
-

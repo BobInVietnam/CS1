@@ -18,7 +18,7 @@ function generateRandomURL() {
   const domains = ['.com', '.org', '.net', '.io', '.dev'];
   const subdomain = getRandomString(8);
   const domain = getRandomString(5);
-  const path = getRandomString(6);
+  const path = getRandomString(15);
   const protocol = protocols[Math.floor(Math.random() * protocols.length)];
   const tld = domains[Math.floor(Math.random() * domains.length)];
   return `${protocol}://${subdomain}.${domain}${tld}/${path}`;

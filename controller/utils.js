@@ -1,5 +1,5 @@
-const { findId, queryUrl, insert } = require('./persistence/model');
-const cache = require('./persistence/cache');
+const { findId, queryUrl, insert } = require('../persistence/model');
+const cache = require('./cache');
 
 function makeID(length) {
     let result = '';
@@ -32,20 +32,13 @@ async function create(id, url) {
     const result = await insert(id, url);
     if (result) {
         cache.set(id, url);
-        cache.set(url, id);
     }
     return result;
 }
 
 async function shortUrl(url) {
-    let id = await cache.get(url)
-    if (id) {
-        console.log(`Cache hit for URL: ${url}`);
-        return id;
-    }
     id = await queryUrl(url);
     if (id != null) {
-        cache.set(url, id)
         return id;
     }
 

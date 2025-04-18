@@ -2,7 +2,15 @@
     "yaml.schemas": {
         "https://www.artillery.io/schema.json": [
             "file:///home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test.yml",
-            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test.yml%22%2C%22ref%22%3A%22ed19a6502540e51fb54220ec3cc74b143304efe1%22%7D"
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test.yml%22%2C%22ref%22%3A%22ed19a6502540e51fb54220ec3cc74b143304efe1%22%7D",
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test.yml%22%2C%22ref%22%3A%228995b5a593055f4b478dd6274d86011e6e5a2166%22%7D",
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test.yml%22%2C%22ref%22%3A%2236e24539e7345d591cccd2ed44d6810e66bf55db%22%7D",
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test.yml%22%2C%22ref%22%3A%22a1a8e23a7d5edf5a01b3539e00f628fcff5a51cf%22%7D",
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test.yml%22%2C%22ref%22%3A%22e2728068001a1c595186a57b651c21982a60677e%22%7D",
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test-2.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test-2.yml%22%2C%22ref%22%3A%22a1a8e23a7d5edf5a01b3539e00f628fcff5a51cf%22%7D",
+            "file:///home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test2.yml",
+            "file:///home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test2%20copy.yml",
+            "file:///home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test3.yml"
         ]
     }
 }

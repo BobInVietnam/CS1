@@ -1,0 +1,50 @@
+config:
+  target: "http://localhost:3000"
+  http:
+    timeout: 120
+  payload:
+    - path: 'random_urls.csv'
+      fields:
+        - 'url'
+      random: true
+    - path: 'ids.csv'
+      fields:
+        - 'id'
+      random: true
+  phases:
+    - name: "Begin"
+      duration: 10  # Test duration in seconds
+      arrivalRate: 1  # Number of users per second
+    - name: "Ramp"
+      duration: 30
+      arrivalRate: 100
+      rampTo: 400
+    - name: "Steady"
+      duration: 90
+      arrivalRate: 400
+    - name: "Ramp Down"
+      duration: 30
+      arrivalRate: 400
+      rampTo: 100
+    - name: "End"
+      duration: 60
+      arrivalRate: 50
+scenarios:
+  - name: "Link Creator"
+    weight: 1
+    flow:
+      - post:
+          url: "/create?url={{url}}"
+          capture:
+            - json: "$.id"
+              as: "tempId"
+      - get:
+          url: "/short/{{tempId}}"
+          ifTrue: "tempId"
+          followRedirect: false
+  - name: "Link User"
+    weight: 9
+    flow:
+      - get:
+          url: "/short/{{id}}"
+          followRedirect: false
