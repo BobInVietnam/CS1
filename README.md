@@ -2,7 +2,7 @@
 Dưới đây là một chương trình đơn giản sử dụng `express.js`, có mục tiêu để rút gọn link. Chương trình có thể chưa hoàn toàn được tối ưu.
 
 ## Người thực hiện
-Cao Xuân Hùng - 22028291
+Cao Xuân Hùng - 22028291  
 Lê Khả Thái Sơn - 21020088
 
 ## Hướng dẫn cài đặt
@@ -19,6 +19,27 @@ $ npm start
 $ npm run test:performance
 ```
 
+## Hướng dẫn khởi chạy
+Ứng dụng yêu cầu Redis để hoạt động. Bạn có thể khởi chạy Redis và ứng dụng theo một trong hai cách sau:
+
+### 1. Khởi chạy bằng Docker Compose
+Docker Compose đã được cấu hình sẵn trong file `compose.yaml`. Chạy lệnh sau để khởi chạy cả Redis và ứng dụng Node.js:
+
+```sh
+# Build và khởi chạy ứng dụng cùng Redis
+$ docker-compose up --build
+```
+
+### 2. Khởi chạy thủ công
+Nếu không sử dụng Docker Compose, bạn cần khởi chạy Redis và ứng dụng Node.js theo các bước sau:
+
+1. **Cài đặt và khởi chạy Redis**
+
+2. **Khởi chạy ứng dụng Node.js**:
+   ```sh
+   # Khởi chạy ứng dụng
+   $ npm start
+   ```
 ## Mô Tả
 | Endpoint | Phương thức | Mục tiêu
 |--|:--:|--|
