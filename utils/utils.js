@@ -1,4 +1,4 @@
-const { findId, queryUrl, insert } = require('../persistence/model');
+const { findId, findUrl, insert } = require('../persistence/mongoose');
 // const cache = require('../persistence/cache');
 const redisCache = require('../redis/cache')
 
@@ -21,7 +21,7 @@ async function findOrigin(id) {
         return url;
     }
 
-    url = await findId(id);
+    url = await findUrl(id);
     if (url) {
         await redisCache.set(id, url);
     }
@@ -29,7 +29,7 @@ async function findOrigin(id) {
 }
 
 async function getId(url) {
-    id = await queryUrl(url);
+    id = await findId(url);
     return id;
 }
 
