@@ -1,5 +1,6 @@
-const { findId, queryUrl, insert } = require('./persistence/model');
-const cache = require('./persistence/cache');
+const { findId, queryUrl, insert } = require('../persistence/model');
+// const cache = require('../persistence/cache');
+const redisCache = require('../redis/cache')
 
 function makeID(length) {
     let result = '';
@@ -14,7 +15,7 @@ function makeID(length) {
 }
 
 async function findOrigin(id) {
-    let url = cache.get(id);
+    let url = await redisCache.get(id);
     if (url) {
         console.log(`Cache hit for ID: ${id}`);
         return url;
@@ -22,31 +23,20 @@ async function findOrigin(id) {
 
     url = await findId(id);
     if (url) {
-        cache.set(id, url);
+        await redisCache.set(id, url);
     }
     return url;
 }
 
 async function getId(url) {
-    let id = cache.get(url);
-    if (id) {
-        console.log(`Cache hit for URL: ${url}`);
-        return id;
-    }
-
-
     id = await queryUrl(url);
-    if (id) {
-        cache.set(url, id);
-    }
     return id;
 }
 
 async function create(id, url) {
     const result = await insert(id, url);
     if (result) {
-        cache.set(id, url);
-        cache.set(url, id);
+        redisCache.set(id, url);
     }
     return result;
 }

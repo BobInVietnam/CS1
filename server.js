@@ -1,13 +1,15 @@
 const express = require('express')
-const lib = require('./utils')
-const middleware = require('./middleware')
+const lib = require('./utils/utils')
+const middleware = require('./utils/middleware')
 
 const path = require('path')
 const app = express()
 const port = 3000
 
-app.use(express.static('ui'))
+app.use(middleware.rateLimiter)
 app.use(middleware.requestLogger)
+
+app.use(express.static('ui'))
 
 app.get('/', (req, res) => {
     try {

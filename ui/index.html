@@ -11,16 +11,16 @@
     <h1>Shorten Your Link</h1>
     <form id="shortenForm">
       <input type="url" id="urlInput" pattern=".*\..*" placeholder="Enter your website URL" required>
-      <button type="submit">Shorten</button>
+      <button id="submit">Shorten</button>
     </form>
     <div class="output" id="output"></div>
   </div>
 
   <script>
-    const form = document.getElementById('shortenForm');
+    const button = document.getElementById('submit');
     const output = document.getElementById('output');
 
-    form.addEventListener('submit', function(event) {
+    button.addEventListener('click', function(event) {
       event.preventDefault();
       const url = document.getElementById('urlInput').value;
 

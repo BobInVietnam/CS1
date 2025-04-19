@@ -1,3 +1,13 @@
+const rateLimit = require('express-rate-limit');
+
+const MAX_REQUESTS = 30
+
+const rateLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: MAX_REQUESTS,
+  message: { error: 'Too many requests, please try again later.' },
+})
+
 const requestLogger = (req, res, next) => {
   const timestamp = new Date().toISOString();
   const method = req.method;
@@ -19,5 +29,6 @@ const requestLogger = (req, res, next) => {
 };
 
 module.exports = {
-  requestLogger
+  requestLogger,
+  rateLimiter
 }
