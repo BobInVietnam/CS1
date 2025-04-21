@@ -10,7 +10,10 @@
             "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test-2.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test-2.yml%22%2C%22ref%22%3A%22a1a8e23a7d5edf5a01b3539e00f628fcff5a51cf%22%7D",
             "file:///home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test2.yml",
             "file:///home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test2%20copy.yml",
-            "file:///home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test3.yml"
+            "file:///home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test3.yml",
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test3.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test3.yml%22%2C%22ref%22%3A%22b14d204e06bfc70e970e003fa24fc37bec7cad98%22%7D",
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test2.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test2.yml%22%2C%22ref%22%3A%22b14d204e06bfc70e970e003fa24fc37bec7cad98%22%7D",
+            "git:/home/bob-in-linux/Workspace/web/CS1/CS1/test/performance-test.yml?%7B%22path%22%3A%22%2Fhome%2Fbob-in-linux%2FWorkspace%2Fweb%2FCS1%2FCS1%2Ftest%2Fperformance-test.yml%22%2C%22ref%22%3A%22b14d204e06bfc70e970e003fa24fc37bec7cad98%22%7D"
         ]
     }
 }
