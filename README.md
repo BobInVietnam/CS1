@@ -12,8 +12,14 @@ Lê Khả Thái Sơn - 21020088
 $ npm install
 # Tạo folder cho database
 $ mkdir db
-# Khởi chạy ứng dụng
-$ npm start 
+```
+
+## Hướng dẫn khởi chạy
+Docker Compose đã được cấu hình sẵn trong file `compose.yaml`. Chạy lệnh sau để khởi chạy cả Redis, MongoDB và ứng dụng Node.js:
+
+```sh
+# Build và khởi chạy ứng dụng cùng Redis
+$ docker compose up --build
 ```
 
 ## Mô Tả
