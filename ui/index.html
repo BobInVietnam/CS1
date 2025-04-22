@@ -24,11 +24,12 @@
       event.preventDefault();
       const url = document.getElementById('urlInput').value;
 
-      var i = 0;
-      let text = ["Shortening. Please wait.",
+      let i = 0;
+      const text = [
+        "Shortening. Please wait.",
         "Shortening. Please wait..",
         "Shortening. Please wait...",
-      ]
+      ];
 
       const loop = setInterval(() => {
         output.innerHTML = text[i]
