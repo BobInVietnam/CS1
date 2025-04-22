@@ -35,18 +35,40 @@
         i = (i + 1) % text.length
       }, 1000)
 
-      fetch(`http://localhost:3000/create?url=${url}`, {
-        method: 'POST',
-      }).then(res => res.json())
-      .then(data => {
-        clearInterval(loop)
-        shortenedUrl = "http://localhost:3000/short/" + data.id;
-        output.innerHTML = `Shortened URL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
-      }).catch(error => {
-        clearInterval(loop)
-        console.error('Error:', error);
-        output.innerHTML = 'Error shortening the URL. Please try again.';
-      });
+      async function fetchWithRetry(url, options, retries = 3, delay = 5000) {
+        for (let attempt = 0; attempt < retries; attempt++) {
+          try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+              if (response.status === 404) {
+                throw new Error('URL not found.')
+                return response.json();
+              }
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          } catch (error) {
+            console.error(`Attempt ${attempt} failed:`, error.message);
+            if (attempt < retries) {
+              await new Promise((resolve) => setTimeout(resolve, delay + attempt * 5000));
+            } else {
+              throw error;
+            }
+          }
+        }
+      }
+
+      fetchWithRetry(`http://localhost:3000/create?url=${url}`, { method: 'POST' })
+        .then((data) => {
+          clearInterval(loop);
+          const shortenedUrl = `http://localhost:3000/short/${data.id}`;
+          output.innerHTML = `Shortened URL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
+        })
+        .catch((error) => {
+          clearInterval(loop);
+          console.error('Error:', error);
+          output.innerHTML = 'Error shortening the URL. Please try again.';
+        });
     });
   </script>
 </body>
