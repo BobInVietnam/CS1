@@ -2,7 +2,7 @@
 Dưới đây là một chương trình đơn giản sử dụng `express.js`, có mục tiêu để rút gọn link. Chương trình có thể chưa hoàn toàn được tối ưu.
 
 ## Người thực hiện
-Cao Xuân Hùng - 22028291
+Cao Xuân Hùng - 22028291  
 Lê Khả Thái Sơn - 21020088
 
 
