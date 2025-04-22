@@ -24,29 +24,48 @@
       event.preventDefault();
       const url = document.getElementById('urlInput').value;
 
-      var i = 0;
-      let text = ["Shortening. Please wait.",
+      let i = 0;
+      const text = [
+        "Shortening. Please wait.",
         "Shortening. Please wait..",
         "Shortening. Please wait...",
-      ]
+      ];
 
       const loop = setInterval(() => {
-        output.innerHTML = text[i]
-        i = (i + 1) % text.length
-      }, 1000)
+        output.innerHTML = text[i];
+        i = (i + 1) % text.length;
+      }, 1000);
 
-      fetch(`http://localhost:3000/create?url=${url}`, {
-        method: 'POST',
-      }).then(res => res.json())
-      .then(data => {
-        clearInterval(loop)
-        shortenedUrl = "http://localhost:3000/short/" + data.id;
-        output.innerHTML = `Shortened URL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
-      }).catch(error => {
-        clearInterval(loop)
-        console.error('Error:', error);
-        output.innerHTML = 'Error shortening the URL. Please try again.';
-      });
+      async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+        for (let attempt = 1; attempt <= retries; attempt++) {
+          try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          } catch (error) {
+            console.error(`Attempt ${attempt} failed:`, error.message);
+            if (attempt < retries) {
+              await new Promise((resolve) => setTimeout(resolve, delay));
+            } else {
+              throw error;
+            }
+          }
+        }
+      }
+
+      fetchWithRetry(`http://localhost:3000/create?url=${url}`, { method: 'POST' })
+        .then((data) => {
+          clearInterval(loop);
+          const shortenedUrl = `http://localhost:3000/short/${data.id}`;
+          output.innerHTML = `Shortened URL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a>`;
+        })
+        .catch((error) => {
+          clearInterval(loop);
+          console.error('Error:', error);
+          output.innerHTML = 'Error shortening the URL. Please try again.';
+        });
     });
   </script>
 </body>
