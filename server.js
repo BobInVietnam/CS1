@@ -6,7 +6,7 @@ const path = require('path')
 const app = express()
 const port = 3000
 
-// app.use(middleware.rateLimiter)
+app.use(middleware.rateLimiter)
 app.use(middleware.requestLogger)
 
 app.use(express.static('ui'))
